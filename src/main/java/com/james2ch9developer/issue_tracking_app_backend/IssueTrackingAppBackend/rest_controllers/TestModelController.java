@@ -1,3 +1,8 @@
+/*
+    Works Cited:
+    https://github.com/RameshMF/spring-boot-tutorial/tree/master/springboot2-postgresql-jpa-hibernate-crud-example
+*/
+
 package com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.rest_controllers;
 
 import java.util.HashMap;
@@ -48,5 +53,28 @@ public class TestModelController {
 		return testModelRepository.save(testModel);
 	}
 	// Update TestModel.
-	//
+	@PutMapping("/TestModels/{id}")
+	public ResponseEntity<TestModel> updateTestModel(@PathVariable(value = "id") Long TestModelId,
+			@Valid @RequestBody TestModel testModelDetails) throws ResourceNotFoundException {
+		TestModel testModel = testModelRepository.findById(TestModelId)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + TestModelId));
+
+		testModel.setEmail(testModelDetails.getEmail());
+		testModel.setLastName(testModelDetails.getLastName());
+		testModel.setFirstName(testModelDetails.getFirstName());
+		final TestModel updateTestModel = testModelRepository.save(testModel);
+		return ResponseEntity.ok(updateTestModel);
+	}
+	// Delete TestModel.
+	@DeleteMapping("/TestModels/{id}")
+	public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") Long TestModelId)
+			throws ResourceNotFoundException {
+		TestModel testModel = testModelRepository.findById(TestModelId)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + TestModelId));
+
+		testModelRepository.delete(testModel);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return response;
+	}
 }
