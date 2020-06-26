@@ -1,15 +1,25 @@
 package com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.rest_controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.repositorys.TestModelRepository;
+import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.exceptions.ResourceNotFoundException;
 import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.models.TestModel;
+import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.repositorys.TestModelRepository;
 
 @RestController
 @RequestMapping("/testApi")
@@ -32,4 +42,11 @@ public class TestModelController {
 	            .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + TestModelId));
 	        return ResponseEntity.ok().body(testModel);
 	    }
+    // Save TestModel.
+    @PostMapping("/TestModels")
+	public TestModel createTestModel(@Valid @RequestBody TestModel testModel) {
+		return testModelRepository.save(testModel);
+	}
+	// Update TestModel.
+	//
 }
