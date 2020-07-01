@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.exceptions.ResourceNotFoundException;
 import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.models.TestModel;
@@ -34,6 +35,7 @@ public class TestModelController {
     private TestModelRepository testModelRepository;
     
     // Get all TestModels.
+    @CrossOrigin
     @GetMapping(value = "/TestModels", produces = "application/json")
     public List<TestModel> getAllTestModels() {
         return this.testModelRepository.findAll();
@@ -57,7 +59,7 @@ public class TestModelController {
 	public ResponseEntity<TestModel> updateTestModel(@PathVariable(value = "id") Long TestModelId,
 			@Valid @RequestBody TestModel testModelDetails) throws ResourceNotFoundException {
 		TestModel testModel = testModelRepository.findById(TestModelId)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + TestModelId));
+				.orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + TestModelId));
 
 		testModel.setEmail(testModelDetails.getEmail());
 		testModel.setLastName(testModelDetails.getLastName());
@@ -70,7 +72,7 @@ public class TestModelController {
 	public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") Long TestModelId)
 			throws ResourceNotFoundException {
 		TestModel testModel = testModelRepository.findById(TestModelId)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + TestModelId));
+				.orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + TestModelId));
 
 		testModelRepository.delete(testModel);
 		Map<String, Boolean> response = new HashMap<>();
