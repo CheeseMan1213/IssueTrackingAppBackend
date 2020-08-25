@@ -9,6 +9,6 @@ public class HelloWorld {
     
     @GetMapping(value = "/hello", produces = "text/plain")
     public String HelloWorld() {
-        return "Hello World! La La La.\nHello World to you too!\nTwilight Sparkle";
+        return "Hello World! La La La.\nHello World to you too!\nRainbow Dash";
     }
 }
