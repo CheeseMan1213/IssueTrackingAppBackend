@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,10 +34,21 @@ public class TestModelController {
     
     @Autowired
     private TestModelRepository testModelRepository;
-    
-    // Get all TestModels.
+	
+	/*
+	Special infor from:
+	https://stackoverflow.com/questions/14197359/spring-cache-abstraction-vs-interfaces-vs-key-param-null-key-returned-for-cach
+	http://static.springsource.org/spring/docs/3.1.0.M1/spring-framework-reference/html/cache.html#cache-spel-context
+	The '#p0' is part of Spring, and is a different way to reference the URL parameters.
+	*/
+	// Get all TestModels.
+	/*
+	Helpful URL = https://stackoverflow.com/questions/33383366/cacheble-annotation-on-no-parameter-method
+	"The easiest workaround is to provide the name of the method as the key"
+	 */
     @CrossOrigin
-    @GetMapping(value = "/TestModels", produces = "application/json")
+	@GetMapping(value = "/TestModels", produces = "application/json")
+	@Cacheable(key = "#root.methodName", value = "TestModels")
     public List<TestModel> getAllTestModels() {
         return this.testModelRepository.findAll();
     }
