@@ -9,8 +9,10 @@ com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.rest_c
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
+@EnableCaching
 public class IssueTrackingAppBackendApplication {
 
 	public static void main(String[] args) {
