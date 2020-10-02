@@ -1,5 +1,7 @@
 /*
-    Works Cited:
+	Works Cited:
+	video title = Spring Boot, PostgreSQL, JPA, Hibernate RESTful CRUD API Tutorial
+	URL = https://www.youtube.com/watch?v=eWbGV3LLwVQ
     https://github.com/RameshMF/spring-boot-tutorial/tree/master/springboot2-postgresql-jpa-hibernate-crud-example
 */
 
@@ -36,16 +38,15 @@ public class TestModelController {
     private TestModelRepository testModelRepository;
 	
 	/*
-	Special infor from:
+	Special info from:
 	https://stackoverflow.com/questions/14197359/spring-cache-abstraction-vs-interfaces-vs-key-param-null-key-returned-for-cach
 	http://static.springsource.org/spring/docs/3.1.0.M1/spring-framework-reference/html/cache.html#cache-spel-context
 	The '#p0' is part of Spring, and is a different way to reference the URL parameters.
-	*/
-	// Get all TestModels.
-	/*
+
 	Helpful URL = https://stackoverflow.com/questions/33383366/cacheble-annotation-on-no-parameter-method
 	"The easiest workaround is to provide the name of the method as the key"
 	 */
+	// Get all TestModels.
     @CrossOrigin
 	@GetMapping(value = "/TestModels", produces = "application/json")
 	@Cacheable(key = "#root.methodName", value = "TestModels")
@@ -79,7 +80,7 @@ public class TestModelController {
 		final TestModel updateTestModel = testModelRepository.save(testModel);
 		return ResponseEntity.ok(updateTestModel);
 	}
-	// Delete TestModel.
+	// Delete TestModel by id.
 	@DeleteMapping("/TestModels/{id}")
 	public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") Long TestModelId)
 			throws ResourceNotFoundException {
