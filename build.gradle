@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.4.0-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'pmd'
 }
 
 group = 'com.james2ch9developer.issue_tracking_app_backend'
@@ -25,4 +26,10 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+pmd {
+	toolVersion = '6.28.0'
+	ruleSetConfig = rootProject.resources.text.fromFile('linterConfigs/pmd/ruleset.xml')
+  	ignoreFailures = true
 }
