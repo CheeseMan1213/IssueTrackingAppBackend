@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 	id 'pmd'
+	id 'checkstyle'
 }
 
 group = 'com.james2ch9developer.issue_tracking_app_backend'
@@ -26,6 +27,11 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+checkstyle {
+  toolVersion = '6.16.1'
+  config = rootProject.resources.text.fromFile('linterConfigs/checkstyle/checkstyle.xml')
 }
 
 pmd {
