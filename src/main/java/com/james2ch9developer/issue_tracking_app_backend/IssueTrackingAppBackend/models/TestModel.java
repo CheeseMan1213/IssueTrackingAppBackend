@@ -36,7 +36,7 @@ public class TestModel implements Serializable {
         super();
     }
     // Another constructor.
-    public TestModel(String firstName, String lastName, String email) {
+    public TestModel(final String firstName, final String lastName, final String email) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,28 +47,28 @@ public class TestModel implements Serializable {
     public long getId() {
         return this.id;
     }
-    public void setId(long id) {
+    public void setId(final long id) {
         this.id = id;
     }
     
     public String getFirstName() {
         return this.firstName;
     }
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
     
     public String getLastName() {
         return this.lastName;
     }
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
     
     public String getEmail() {
         return this.email;
     }
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 }
