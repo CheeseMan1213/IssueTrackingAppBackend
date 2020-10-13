@@ -5,7 +5,7 @@
     https://github.com/RameshMF/spring-boot-tutorial/tree/master/springboot2-postgresql-jpa-hibernate-crud-example
 */
 
-package com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.exceptions;
+package com.james2ch9developer.issue_tracking_app_backend.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

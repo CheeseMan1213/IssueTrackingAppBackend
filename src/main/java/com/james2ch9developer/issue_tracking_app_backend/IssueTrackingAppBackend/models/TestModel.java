@@ -5,7 +5,7 @@
     https://github.com/RameshMF/spring-boot-tutorial/tree/master/springboot2-postgresql-jpa-hibernate-crud-example
 */
 
-package com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.models;
+package com.james2ch9developer.issue_tracking_app_backend.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

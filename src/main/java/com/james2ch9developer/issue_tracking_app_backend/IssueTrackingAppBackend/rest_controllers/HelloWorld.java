@@ -1,4 +1,4 @@
-package com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.rest_controllers;
+package com.james2ch9developer.issue_tracking_app_backend.rest_controllers;
 
 import org.springframework.web.bind.annotation.*;
 

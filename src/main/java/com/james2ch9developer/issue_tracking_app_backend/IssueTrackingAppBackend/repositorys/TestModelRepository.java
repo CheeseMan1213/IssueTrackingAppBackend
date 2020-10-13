@@ -5,12 +5,12 @@
     https://github.com/RameshMF/spring-boot-tutorial/tree/master/springboot2-postgresql-jpa-hibernate-crud-example
 */
 
-package com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.repositorys;
+package com.james2ch9developer.issue_tracking_app_backend.repositorys;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.models.TestModel;
+import com.james2ch9developer.issue_tracking_app_backend.models.TestModel;
 
 @Repository
 public interface TestModelRepository extends JpaRepository<TestModel, Long> {

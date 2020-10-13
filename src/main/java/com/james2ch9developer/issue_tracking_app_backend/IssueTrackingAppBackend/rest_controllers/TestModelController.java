@@ -5,7 +5,7 @@
     https://github.com/RameshMF/spring-boot-tutorial/tree/master/springboot2-postgresql-jpa-hibernate-crud-example
 */
 
-package com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.rest_controllers;
+package com.james2ch9developer.issue_tracking_app_backend.rest_controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.exceptions.ResourceNotFoundException;
-import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.models.TestModel;
-import com.james2ch9developer.issue_tracking_app_backend.IssueTrackingAppBackend.repositorys.TestModelRepository;
+import com.james2ch9developer.issue_tracking_app_backend.exceptions.ResourceNotFoundException;
+import com.james2ch9developer.issue_tracking_app_backend.models.TestModel;
+import com.james2ch9developer.issue_tracking_app_backend.repositorys.TestModelRepository;
 
 @RestController
 @RequestMapping("/testApi")
