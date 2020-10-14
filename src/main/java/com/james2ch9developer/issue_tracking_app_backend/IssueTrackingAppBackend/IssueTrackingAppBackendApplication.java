@@ -19,8 +19,8 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching // This is a new annotaiotn I added after I started using Redis cache.
 public class IssueTrackingAppBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(IssueTrackingAppBackendApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+	SpringApplication.run(IssueTrackingAppBackendApplication.class, args);
+    }
 }
+

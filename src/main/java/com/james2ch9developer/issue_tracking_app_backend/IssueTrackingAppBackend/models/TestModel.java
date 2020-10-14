@@ -1,19 +1,19 @@
 /*
-	Works Cited:
-	video title = Spring Boot, PostgreSQL, JPA, Hibernate RESTful CRUD API Tutorial
-	URL = https://www.youtube.com/watch?v=eWbGV3LLwVQ
+    Works Cited:
+    video title = Spring Boot, PostgreSQL, JPA, Hibernate RESTful CRUD API Tutorial
+    URL = https://www.youtube.com/watch?v=eWbGV3LLwVQ
     https://github.com/RameshMF/spring-boot-tutorial/tree/master/springboot2-postgresql-jpa-hibernate-crud-example
 */
 
 package com.james2ch9developer.issue_tracking_app_backend.models;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "tests")
@@ -35,7 +35,8 @@ public class TestModel implements Serializable {
     public TestModel() {
         super();
     }
-    // Another constructor.
+
+    /** Another constructor. */
     public TestModel(final String firstName, final String lastName, final String email) {
         super();
         this.firstName = firstName;
@@ -47,6 +48,7 @@ public class TestModel implements Serializable {
     public long getId() {
         return this.id;
     }
+
     public void setId(final long id) {
         this.id = id;
     }
@@ -54,6 +56,7 @@ public class TestModel implements Serializable {
     public String getFirstName() {
         return this.firstName;
     }
+
     public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
@@ -61,6 +64,7 @@ public class TestModel implements Serializable {
     public String getLastName() {
         return this.lastName;
     }
+
     public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
@@ -68,6 +72,7 @@ public class TestModel implements Serializable {
     public String getEmail() {
         return this.email;
     }
+
     public void setEmail(final String email) {
         this.email = email;
     }

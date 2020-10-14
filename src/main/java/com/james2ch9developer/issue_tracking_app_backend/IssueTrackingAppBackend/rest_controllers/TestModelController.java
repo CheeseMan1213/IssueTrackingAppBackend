@@ -1,7 +1,7 @@
 /*
-	Works Cited:
-	video title = Spring Boot, PostgreSQL, JPA, Hibernate RESTful CRUD API Tutorial
-	URL = https://www.youtube.com/watch?v=eWbGV3LLwVQ
+    Works Cited:
+    video title = Spring Boot, PostgreSQL, JPA, Hibernate RESTful CRUD API Tutorial
+    URL = https://www.youtube.com/watch?v=eWbGV3LLwVQ
     https://github.com/RameshMF/spring-boot-tutorial/tree/master/springboot2-postgresql-jpa-hibernate-crud-example
 */
 
@@ -37,7 +37,7 @@ public class TestModelController {
     @Autowired
     private TestModelRepository testModelRepository;
 	
-	/*
+    /*
 	Special info from:
 	https://stackoverflow.com/questions/14197359/spring-cache-abstraction-vs-interfaces-vs-key-param-null-key-returned-for-cach
 	http://static.springsource.org/spring/docs/3.1.0.M1/spring-framework-reference/html/cache.html#cache-spel-context
@@ -45,51 +45,55 @@ public class TestModelController {
 
 	Helpful URL = https://stackoverflow.com/questions/33383366/cacheble-annotation-on-no-parameter-method
 	"The easiest workaround is to provide the name of the method as the key"
-	 */
-	// Get all TestModels.
+     */
+    // Get all TestModels.
     @CrossOrigin
-	@GetMapping(value = "/TestModels", produces = "application/json")
-	@Cacheable(key = "#root.methodName", value = "TestModels")
+    @GetMapping(value = "/TestModels", produces = "application/json")
+    @Cacheable(key = "#root.methodName", value = "TestModels")
     public List<TestModel> getAllTestModels() {
-        return this.testModelRepository.findAll();
+    	return this.testModelRepository.findAll();
     }
     
-    // Get one TestModel by id.
+    /** Get one TestModel by id. */
     @GetMapping("/TestModels/{id}")
-	public ResponseEntity<TestModel> getTestModelById(@PathVariable(value = "id") Long TestModelId)
-	    throws ResourceNotFoundException {
-	        TestModel testModel = testModelRepository.findById(TestModelId)
-	            .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + TestModelId));
-	        return ResponseEntity.ok().body(testModel);
-	    }
-    // Save TestModel.
+    public ResponseEntity<TestModel> getTestModelById(@PathVariable(value = "id") Long testModelId)
+    throws ResourceNotFoundException {
+	TestModel testModel = testModelRepository.findById(testModelId)
+	  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
+	return ResponseEntity.ok().body(testModel);
+    }
+
+    /** Save TestModel. */
     @PostMapping("/TestModels")
-	public TestModel createTestModel(@Valid @RequestBody TestModel testModel) {
-		return testModelRepository.save(testModel);
-	}
-	// Update TestModel.
-	@PutMapping("/TestModels/{id}")
-	public ResponseEntity<TestModel> updateTestModel(@PathVariable(value = "id") Long TestModelId,
-			@Valid @RequestBody TestModel testModelDetails) throws ResourceNotFoundException {
-		TestModel testModel = testModelRepository.findById(TestModelId)
-				.orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + TestModelId));
+    public TestModel createTestModel(@Valid @RequestBody TestModel testModel) {
+    	return testModelRepository.save(testModel);
+    }
 
-		testModel.setEmail(testModelDetails.getEmail());
-		testModel.setLastName(testModelDetails.getLastName());
-		testModel.setFirstName(testModelDetails.getFirstName());
-		final TestModel updateTestModel = testModelRepository.save(testModel);
-		return ResponseEntity.ok(updateTestModel);
-	}
-	// Delete TestModel by id.
-	@DeleteMapping("/TestModels/{id}")
-	public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") Long TestModelId)
-			throws ResourceNotFoundException {
-		TestModel testModel = testModelRepository.findById(TestModelId)
-				.orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + TestModelId));
+    /** Update TestModel. */
+    @PutMapping("/TestModels/{id}")
+    public ResponseEntity<TestModel> updateTestModel(@PathVariable(value = "id") Long testModelId,
+      @Valid @RequestBody TestModel testModelDetails) throws ResourceNotFoundException {
+	TestModel testModel = testModelRepository.findById(testModelId)
+	  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
 
-		testModelRepository.delete(testModel);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
-		return response;
-	}
+	testModel.setEmail(testModelDetails.getEmail());
+	testModel.setLastName(testModelDetails.getLastName());
+	testModel.setFirstName(testModelDetails.getFirstName());
+	final TestModel updateTestModel = testModelRepository.save(testModel);
+	return ResponseEntity.ok(updateTestModel);
+    }
+
+    /** Delete TestModel by id. */
+    @DeleteMapping("/TestModels/{id}")
+    public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") Long testModelId)
+    throws ResourceNotFoundException {
+	TestModel testModel = testModelRepository.findById(testModelId)
+	  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
+
+	testModelRepository.delete(testModel);
+	Map<String, Boolean> response = new HashMap<>();
+	response.put("deleted", Boolean.TRUE);
+	return response;
+    }
 }
+
