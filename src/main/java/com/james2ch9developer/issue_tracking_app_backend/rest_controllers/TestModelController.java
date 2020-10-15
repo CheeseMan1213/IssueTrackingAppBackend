@@ -7,37 +7,28 @@
 
 package com.james2ch9developer.issue_tracking_app_backend.rest_controllers;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.james2ch9developer.issue_tracking_app_backend.exceptions.ResourceNotFoundException;
 import com.james2ch9developer.issue_tracking_app_backend.models.TestModel;
 import com.james2ch9developer.issue_tracking_app_backend.repositorys.TestModelRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/testApi")
 public class TestModelController {
-    
-    @Autowired
-    private TestModelRepository testModelRepository;
-	
-    /*
+
+	@Autowired
+	private TestModelRepository testModelRepository;
+
+	/*
 	Special info from:
 	https://stackoverflow.com/questions/14197359/spring-cache-abstraction-vs-interfaces-vs-key-param-null-key-returned-for-cach
 	http://static.springsource.org/spring/docs/3.1.0.M1/spring-framework-reference/html/cache.html#cache-spel-context
@@ -45,55 +36,55 @@ public class TestModelController {
 
 	Helpful URL = https://stackoverflow.com/questions/33383366/cacheble-annotation-on-no-parameter-method
 	"The easiest workaround is to provide the name of the method as the key"
-     */
-    // Get all TestModels.
-    @CrossOrigin
-    @GetMapping(value = "/TestModels", produces = "application/json")
-    @Cacheable(key = "#root.methodName", value = "TestModels")
-    public List<TestModel> getAllTestModels() {
-    	return this.testModelRepository.findAll();
-    }
-    
-    /** Get one TestModel by id. */
-    @GetMapping("/TestModels/{id}")
-    public ResponseEntity<TestModel> getTestModelById(@PathVariable(value = "id") Long testModelId)
-    throws ResourceNotFoundException {
-	TestModel testModel = testModelRepository.findById(testModelId)
-	  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
-	return ResponseEntity.ok().body(testModel);
-    }
+	 */
+	// Get all TestModels.
+	@CrossOrigin
+	@GetMapping(value = "/TestModels", produces = "application/json")
+	@Cacheable(key = "#root.methodName", value = "TestModels")
+	public List<TestModel> getAllTestModels() {
+		return this.testModelRepository.findAll();
+	}
 
-    /** Save TestModel. */
-    @PostMapping("/TestModels")
-    public TestModel createTestModel(@Valid @RequestBody TestModel testModel) {
-    	return testModelRepository.save(testModel);
-    }
+	/** Get one TestModel by id. */
+	@GetMapping("/TestModels/{id}")
+	public ResponseEntity<TestModel> getTestModelById(@PathVariable(value = "id") Long testModelId)
+	  throws ResourceNotFoundException {
+		TestModel testModel = testModelRepository.findById(testModelId)
+		  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
+		return ResponseEntity.ok().body(testModel);
+	}
 
-    /** Update TestModel. */
-    @PutMapping("/TestModels/{id}")
-    public ResponseEntity<TestModel> updateTestModel(@PathVariable(value = "id") Long testModelId,
-      @Valid @RequestBody TestModel testModelDetails) throws ResourceNotFoundException {
-	TestModel testModel = testModelRepository.findById(testModelId)
-	  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
+	/** Save TestModel. */
+	@PostMapping("/TestModels")
+	public TestModel createTestModel(@Valid @RequestBody TestModel testModel) {
+		return testModelRepository.save(testModel);
+	}
 
-	testModel.setEmail(testModelDetails.getEmail());
-	testModel.setLastName(testModelDetails.getLastName());
-	testModel.setFirstName(testModelDetails.getFirstName());
-	final TestModel updateTestModel = testModelRepository.save(testModel);
-	return ResponseEntity.ok(updateTestModel);
-    }
+	/** Update TestModel. */
+	@PutMapping("/TestModels/{id}")
+	public ResponseEntity<TestModel> updateTestModel(@PathVariable(value = "id") Long testModelId,
+	                                                 @Valid @RequestBody TestModel testModelDetails) throws ResourceNotFoundException {
+		TestModel testModel = testModelRepository.findById(testModelId)
+		  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
 
-    /** Delete TestModel by id. */
-    @DeleteMapping("/TestModels/{id}")
-    public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") Long testModelId)
-    throws ResourceNotFoundException {
-	TestModel testModel = testModelRepository.findById(testModelId)
-	  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
+		testModel.setEmail(testModelDetails.getEmail());
+		testModel.setLastName(testModelDetails.getLastName());
+		testModel.setFirstName(testModelDetails.getFirstName());
+		final TestModel updateTestModel = testModelRepository.save(testModel);
+		return ResponseEntity.ok(updateTestModel);
+	}
 
-	testModelRepository.delete(testModel);
-	Map<String, Boolean> response = new HashMap<>();
-	response.put("deleted", Boolean.TRUE);
-	return response;
-    }
+	/** Delete TestModel by id. */
+	@DeleteMapping("/TestModels/{id}")
+	public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") Long testModelId)
+	  throws ResourceNotFoundException {
+		TestModel testModel = testModelRepository.findById(testModelId)
+		  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
+
+		testModelRepository.delete(testModel);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return response;
+	}
 }
 
