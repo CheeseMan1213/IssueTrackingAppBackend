@@ -7,12 +7,12 @@
 
 package com.james2ch9developer.issue_tracking_app_backend.repositorys;
 
+import com.james2ch9developer.issue_tracking_app_backend.models.TestModel;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.james2ch9developer.issue_tracking_app_backend.models.TestModel;
-
 @Repository
 public interface TestModelRepository extends JpaRepository<TestModel, Long> {
-    //
+	//
 }
