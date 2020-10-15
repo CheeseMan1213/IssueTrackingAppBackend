@@ -16,17 +16,22 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/testApi")
+// I am suppressing this warning because this is a Spring-boot rest controller.
+// This class does not need a constructor, and I do not need PMD telling me otherwise.
+@SuppressWarnings("PMD.AtLeastOneConstructor")
 public class TestModelController {
 
+	//The only reason the Java transient keyword is here, is to appease the PMD style checker.
+	//See this webpage for a better definition = https://stackoverflow.com/questions/2154622/why-does-jpa-have-a-transient-annotation
 	@Autowired
-	private TestModelRepository testModelRepository;
+	transient private TestModelRepository testModelRepository;
 
 	/*
 	Special info from:
@@ -47,24 +52,24 @@ public class TestModelController {
 
 	/** Get one TestModel by id. */
 	@GetMapping("/TestModels/{id}")
-	public ResponseEntity<TestModel> getTestModelById(@PathVariable(value = "id") Long testModelId)
+	public ResponseEntity<TestModel> getTestModelById(@PathVariable(value = "id") final Long testModelId)
 	  throws ResourceNotFoundException {
-		TestModel testModel = testModelRepository.findById(testModelId)
+		final TestModel testModel = testModelRepository.findById(testModelId)
 		  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
 		return ResponseEntity.ok().body(testModel);
 	}
 
 	/** Save TestModel. */
 	@PostMapping("/TestModels")
-	public TestModel createTestModel(@Valid @RequestBody TestModel testModel) {
+	public TestModel createTestModel(@Valid @RequestBody final TestModel testModel) {
 		return testModelRepository.save(testModel);
 	}
 
 	/** Update TestModel. */
 	@PutMapping("/TestModels/{id}")
-	public ResponseEntity<TestModel> updateTestModel(@PathVariable(value = "id") Long testModelId,
-	                                                 @Valid @RequestBody TestModel testModelDetails) throws ResourceNotFoundException {
-		TestModel testModel = testModelRepository.findById(testModelId)
+	public ResponseEntity<TestModel> updateTestModel(@PathVariable(value = "id") final Long testModelId,
+	                                                 @Valid @RequestBody final TestModel testModelDetails) throws ResourceNotFoundException {
+		final TestModel testModel = testModelRepository.findById(testModelId)
 		  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
 
 		testModel.setEmail(testModelDetails.getEmail());
@@ -76,13 +81,13 @@ public class TestModelController {
 
 	/** Delete TestModel by id. */
 	@DeleteMapping("/TestModels/{id}")
-	public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") Long testModelId)
+	public Map<String, Boolean> deleteTestModel(@PathVariable(value = "id") final Long testModelId)
 	  throws ResourceNotFoundException {
-		TestModel testModel = testModelRepository.findById(testModelId)
+		final TestModel testModel = testModelRepository.findById(testModelId)
 		  .orElseThrow(() -> new ResourceNotFoundException("TestModel not found for this id :: " + testModelId));
 
 		testModelRepository.delete(testModel);
-		Map<String, Boolean> response = new HashMap<>();
+		final Map<String, Boolean> response = new ConcurrentHashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
