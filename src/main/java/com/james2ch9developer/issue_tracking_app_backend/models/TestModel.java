@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tests")
+//I am using the SuppressWarnings annotation here because I think the DataClass violation is stupid.
+@SuppressWarnings("PMD.DataClass")
 public class TestModel implements Serializable {
     
     private static final long serialVersionUID = -8519978855257442015L;
