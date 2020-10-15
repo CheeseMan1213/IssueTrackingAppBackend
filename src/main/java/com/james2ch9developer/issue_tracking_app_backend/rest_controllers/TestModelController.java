@@ -16,9 +16,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.validation.Valid;
 
 @RestController
@@ -31,7 +31,7 @@ public class TestModelController {
 	//The only reason the Java transient keyword is here, is to appease the PMD style checker.
 	//See this webpage for a better definition = https://stackoverflow.com/questions/2154622/why-does-jpa-have-a-transient-annotation
 	@Autowired
-	transient private TestModelRepository testModelRepository;
+	private transient TestModelRepository testModelRepository;
 
 	/*
 	Special info from:
