@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'pmd'
 	id 'checkstyle'
+	id "com.github.spotbugs" version "4.5.1"
 }
 
 group = 'com.james2ch9developer.issue_tracking_app_backend'
@@ -38,4 +39,21 @@ pmd {
 	toolVersion = '6.28.0'
 	ruleSetConfig = rootProject.resources.text.fromFile('linterConfigs/pmd/ruleset.xml')
   	ignoreFailures = true
+}
+
+spotbugs {
+	effort = 'min'
+	reportLevel = "medium"
+	ignoreFailures = true
+
+}
+
+spotbugsMain {
+	reports {
+		html {
+			enabled = true
+			destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+			stylesheet = 'fancy-hist.xsl'
+		}
+	}
 }
