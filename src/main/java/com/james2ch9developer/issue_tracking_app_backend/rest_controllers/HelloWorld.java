@@ -13,6 +13,6 @@ public class HelloWorld {
     
     @GetMapping(value = "/hello", produces = "text/plain")
     public String sayHello() {
-        return "Hello World! La La La.\nHello World to you too!\nRarity and Sweetie Bell";
+        return "Hello World! La La La.\nHello World to you too!\nLuster Dawn";
     }
 }
